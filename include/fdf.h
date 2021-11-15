@@ -1,5 +1,6 @@
 #ifndef FDF_H
 # define FDF_H
+# include "mlx.h"
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -10,13 +11,25 @@
 #include <sys/errno.h>
 #define BUFFER_SIZE 32
 
+typedef struct	s_data {
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}				t_data;
+
+
 typedef struct s_fdf
 {
     int     lentgh;
     int     width;
+    int     win_width;
+    int     win_height;
     int     **matrice;
     void    *mlx_ptr;
     void    *win_ptr;
+    t_data  img;
 }  t_fdf;
 
 size_t		ft_strlen(const char *s);
@@ -28,6 +41,9 @@ int			gnl(int fd, char **line);
 
 // read 
 void    read_file(char *file, t_fdf *fdf);
+
+//draw
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
 // utils
 void	ft_putstr_fd(char *s, int fd);
